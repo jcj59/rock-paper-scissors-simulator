@@ -11,13 +11,25 @@ class Game {
         for (let p of this.particles) {
             this.qtree.insert(new Point(p.x, p.y, p));
         }
+        this.rockAlive = true;
+        this.paperAlive = true;
+        this.scissorsAlive = true;
     }
 
     update() {
         this.qtree = new Quadtree(4, new Rectangle(0, 0, width, height));
-
+        this.rockAlive = false;
+        this.paperAlive = false;
+        this.scissorsAlive = false;
         for (let p of this.particles) {
             this.qtree.insert(new Point(p.x, p.y, p));
+            if (p.type == Types.Rock) {
+                this.rockAlive = true;
+            } else if (p.type == Types.Paper) {
+                this.paperAlive = true;
+            } else {
+                this.scissorsAlive = true;
+            }
         }
 
         for (let p of this.particles) {
@@ -60,7 +72,13 @@ class Game {
 
                 }
             }
-            p.move(closest_attack, closest_flee);
+            if ((p.type == Types.Rock && this.scissorsAlive == false) ||
+                (p.type == Types.Paper && this.rockAlive == false) ||
+                (p.type == Types.Scissors && this.paperAlive == false)) {
+                p.move();
+            } else {
+                p.move(closest_attack, closest_flee);
+            }
         }
         var collision;
         for (let q of this.particles) {
