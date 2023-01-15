@@ -14,6 +14,9 @@ function setup() {
   paperSprite = loadImage('graphics/paper.png');
   scissorSprite = loadImage('graphics/scissors.png');
   game = new Game(NUMBER_OF_POINTS);
+  button = createButton("Reset");
+  button.mousePressed(newGame);
+  button.position(canvas_x + width / 2 - button.width / 2, canvas_y + height + OFFSET);
 }
 
 function windowResized() {
@@ -36,4 +39,8 @@ function drawBorder() {
   rect(0, 0, 2, height);
   rect(0, height - 2, width, 2);
   rect(width - 2, 0, 2, height);
+}
+
+function newGame() {
+  game = new Game(NUMBER_OF_POINTS);
 }
