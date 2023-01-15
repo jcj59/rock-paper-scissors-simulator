@@ -6,6 +6,7 @@ var game;
 
 /** Creates canvas */
 function setup() {
+  frameRate(FRAME_RATE);
   var canvas = createCanvas(300, 500);
   var canvas_x = (windowWidth - width) / 2;
   var canvas_y = (windowHeight - height) / 4;
